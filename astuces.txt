@@ -1,0 +1,54 @@
+ASTUCES:
+
+Regardez le fichier test.html pour comprendre le principe illustré
+
+AJOUT D'UNE TÂCHE
+  1. Créez une fonction addItem() qui fait un alert coucou
+  2. Lancez cette fonction ,quand on appuie sur Enter dans le champ d'ajout
+  3. Alert du contenu du champ
+  4. Ajoutez la tâche en début de liste (insertBefore) avec un slideDown
+  5. Créez une fonction displayNotCompleted() qui compte le nombre de tâches non-terminées
+     (qui n'ont pas de class completed) et qui affiche ce nombre
+     dans le bon élément du DOM
+  6. Activer les fonctions à activer (voir ci-après)
+
+CHECK et DECHECK D'UNE TÂCHE
+  1. Créez une fonction toogleItem()qaui fait un alert coucou
+  2. Lancer cette fonction quand on clique sur un des checkbox
+    (faire une fonction activerCheckboxes())
+  3. Faites un toggle de la class completed quand on clique sur un checkbox
+  4. Relancez la fonction displayNotCompleted()
+
+MODIFICATION D'UNE TÂCHE
+  1. Créez une fonction editItem() qui fait un alert coucou
+  2. Lancez cette fonctions quand quand on double-clique sur une tâche
+    (faites une fonction activerItems())
+  3. Alert du texte
+  4. Mettez un input avec comme valeur le texte
+    Lancer la fonction d'activation des inputs (voir ci-après)
+  5. Créez une fonction updateItem() qui fait un alert coucou
+  6. Lancez cette fonction quand on appuie sur Enter depuis un input
+    (faites une fonction activerInputs())
+  7. Alert du contenu de l'input
+  8. Supprimez l'input et remettre le texte
+
+SUPPRESSION D'UNE TÂCHE
+  1. Créez une fonction deleteItem() qui fait Alert coucou
+  2. Lancez cette fonction quand on clique sur une des croix
+    (faites une fonction activerDeleteBtns())
+  2. Faites un slideup et un remove
+  3. Relancez la fonction displayNotCompleted()
+
+LES FILTRES
+  1. Créez une fonction filterItems(filtre) qui fait un Alert coucou
+  2. Lancez cette fonction quand on clique sur une des filtres
+     et qui lui envoit la valeur du filtre ('all', 'completed', 'not-completed')
+  3. SlideUp sur les tâches correspondantes
+
+CLEAR COMPLETED
+  1. CRéez une fonction deletedAllCompleted() qui fait une alert coucou
+  2. Lancez cette fonction quand on clique sur le Lien
+  3. Slideup et remove des tâches completed
+
+BONUS:
+  A vous de trouver...

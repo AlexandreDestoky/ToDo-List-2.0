@@ -9,7 +9,7 @@ export default class Todo {
     this.template = todoTemplate;
   }
 
-  render() {
+  _repaleInTemplate() {
     //je remplace les données statiques par les données du Todo
     for (let propriete in this) {
       this.template = this.template.replace(`{{${propriete}}}`, this[propriete]);
@@ -17,7 +17,11 @@ export default class Todo {
     //Si c'est completed
     this.template = this.template.replace("{{isCompletedClass}}", this.completed == true ? "completed" : "");
     this.template = this.template.replace("{{isCompletedChecked}}", this.completed == true ? "checked=checked" : "");
+  }
 
+  render() {
+    
+    this._repaleInTemplate();
     const newTodo = document.createElement("div");
     newTodo.innerHTML = this.template;
     this.parent.listEl.append(newTodo);

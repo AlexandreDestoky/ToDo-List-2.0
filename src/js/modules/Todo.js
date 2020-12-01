@@ -9,7 +9,7 @@ export default class Todo {
     this.template = todoTemplate;
   }
 
-  _repaleInTemplate() {
+  _replaceInTemplate() {
     //je remplace les données statiques par les données du Todo
     for (let propriete in this) {
       this.template = this.template.replace(`{{${propriete}}}`, this[propriete]);
@@ -21,7 +21,7 @@ export default class Todo {
 
   render() {
     
-    this._repaleInTemplate();
+    this._replaceInTemplate();
     const newTodo = document.createElement("div");
     newTodo.innerHTML = this.template;
     this.parent.listEl.append(newTodo);

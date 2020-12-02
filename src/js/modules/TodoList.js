@@ -57,6 +57,7 @@ export default class TodoList {
     this.todos.push(newTodo);
     newTodo.render();
     this.el.querySelector(".new-todo").value = "";
+    // this.setNotCompletedNumber(); perso pas prof
   }
 
   /**

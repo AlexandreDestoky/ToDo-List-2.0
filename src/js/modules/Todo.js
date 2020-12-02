@@ -3,6 +3,7 @@ import todoTemplate from "./templates/todo.js";
 export default class Todo {
   constructor(data) {
     this.parent = data.parent;
+    this.el;
     this.id = data.todo.id;
     this.content = data.todo.content;
     this.completed = data.todo.completed;
@@ -20,10 +21,27 @@ export default class Todo {
   }
 
   render() {
-    
     this._replaceInTemplate();
-    const newTodo = document.createElement("div");
-    newTodo.innerHTML = this.template;
-    this.parent.listEl.append(newTodo);
+    this.el = document.createElement("div");
+    this.el.innerHTML = this.template;
+    this.parent.listEl.append(this.el);
+
+    //activation des éléments interactifs de la Todo
+    this._activerBtns();
+  }
+
+  /**
+   * Activations des éléments intéractifs du Todo
+   */
+  _activerBtns() {
+    this.el.querySelector(".toggle").addEventListener("change",()=> {
+      this._toggleCompleted();
+    });
+  }
+
+  _toggleCompleted() {
+    this.completed = !this.completed;
+    this.el.querySelector("li").classList.toggle("completed");
+    this.parent.setNotCompletedNumber();
   }
 }

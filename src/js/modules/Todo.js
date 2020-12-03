@@ -47,6 +47,20 @@ export default class Todo {
     this.el.querySelector(".destroy").addEventListener("click", () => {
       this._destroy();
     });
+
+    //activation des .editable
+    this.el.querySelector(".editable").addEventListener("dblclick", () => {
+      this._edit();
+    });
+
+    //activation des .validate si il existe un .validate
+    if (this.el.querySelector(".validate")) {
+      this.el.querySelector(".validate").addEventListener("keyup", (e) => {
+        if (e.key == "Enter") {
+          this._validate();
+        }
+      });
+    }
   }
 
   /**
@@ -59,12 +73,31 @@ export default class Todo {
   }
 
   /**
-   * Suppression de l'élément
+   * Suppression d'un todo
    */
   _destroy() {
     //suppression de l'élement
     this.el.remove();
     //fct parent (Todolist)
     this.parent.removeOneById(this.id);
+  }
+
+  /**
+   * Edition d'un todo
+   */
+  _edit() {
+    this.el.querySelector(".editable").innerHTML = `
+      <input type="text" class="validate" value="${this.content}"/>
+    `;
+    this._activerBtns();
+  }
+
+  /**
+   * Validation d'une Modification de todo
+   */
+  _validate() {
+    this.content = this.el.querySelector(".validate").value
+    this.el.querySelector(".editable").innerHTML = this.content;
+    this._activerBtns();
   }
 }

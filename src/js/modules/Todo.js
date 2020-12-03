@@ -10,6 +10,9 @@ export default class Todo {
     this.template = todoTemplate;
   }
 
+  /**
+   * met les données dans le template
+   */
   _replaceInTemplate() {
     //je remplace les données statiques par les données du Todo
     for (let propriete in this) {
@@ -32,16 +35,36 @@ export default class Todo {
 
   /**
    * Activations des éléments intéractifs du Todo
+   * detection cocher checkbox
    */
   _activerBtns() {
-    this.el.querySelector(".toggle").addEventListener("change",()=> {
+    //activation des .toggle
+    this.el.querySelector(".toggle").addEventListener("change", () => {
       this._toggleCompleted();
+    });
+
+    //activation des .destroy
+    this.el.querySelector(".destroy").addEventListener("click", () => {
+      this._destroy();
     });
   }
 
+  /**
+   * inversion completed de todo
+   */
   _toggleCompleted() {
     this.completed = !this.completed;
     this.el.querySelector("li").classList.toggle("completed");
     this.parent.setNotCompletedNumber();
+  }
+
+  /**
+   * Suppression de l'élément
+   */
+  _destroy() {
+    //suppression de l'élement
+    this.el.remove();
+    //fct parent (Todolist)
+    this.parent.removeOneById(this.id);
   }
 }

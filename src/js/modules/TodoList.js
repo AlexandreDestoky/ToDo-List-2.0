@@ -1,18 +1,20 @@
 import Todo from "./Todo.js";
 import todoListTemplate from "./templates/todoList.js";
-import todo from "./templates/todo.js";
 
 export default class TodoList {
   constructor(data) {
     this.el = document.querySelector(data.el);
     this.listEl;
     this.notCompletedNumber;
-    this.todos = [];
+    this.todos = []; // tableau d'éléments todo
     this.loadTodos(data.todos);
     this.template = todoListTemplate;
     this.render();
   }
 
+  /***
+   * Remplissage de this.todos avec toutes nos todo
+   */
   loadTodos(todos) {
     for (const todo of todos) {
       this.todos.push(new Todo({ parent: this, todo }));
@@ -42,7 +44,7 @@ export default class TodoList {
    */
   setNotCompletedNumber() {
     //renvoie le nombre de non completé
-    this.notCompletedNumber = this.todos.filter((todo) => todo.completed === false).length;
+    this.notCompletedNumber = this.todos.filter((todo) => todo.completed === false).length; //2 dans notre cas
     this.el.querySelector(".todo-count strong").textContent = this.notCompletedNumber;
   }
 
@@ -52,12 +54,20 @@ export default class TodoList {
    */
   addTodo() {
     const content = this.el.querySelector(".new-todo").value;
-    const id = this.todos[this.todos.length - 1].id + 1;
+    // const id = this.todos[this.todos.length - 1].id + 1; // prof
+    const id = this.todos.length + 1; //perso
     const newTodo = new Todo({ parent: this, todo : { id, content, completed: false } });
     this.todos.push(newTodo);
     newTodo.render();
-    this.el.querySelector(".new-todo").value = "";
+    this.el.querySelector(".new-todo").value = ""; // on vide l'input de sa valeur
     // this.setNotCompletedNumber(); perso pas prof
+  }
+
+  /**
+   * Suppresion d'un élément du tab this.todos
+   */
+  removeOneById(id) {
+    this.todos = this.todos.filter(el => el.id != id);
   }
 
   /**
@@ -65,10 +75,10 @@ export default class TodoList {
    */
   activerBtns() {
     //Activation de l'input .new-todo
-    this.el.querySelector(".new-todo").onkeyup = (e) => {
+    this.el.querySelector(".new-todo").addEventListener("keyup",(e)=> {
       if (e.key == "Enter") {
         this.addTodo();
       }
-    };
+    })
   }
 }

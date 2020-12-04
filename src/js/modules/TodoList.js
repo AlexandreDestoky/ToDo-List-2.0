@@ -9,7 +9,7 @@ export default class TodoList {
     this.todos = []; // tableau d'éléments todo
     this.loadTodos(data.todos);
     this.template = todoListTemplate;
-    this.render();
+    this.render(this.todos);
   }
 
   /***
@@ -20,16 +20,16 @@ export default class TodoList {
       this.todos.push(new Todo({ parent: this, todo }));
     }
   }
-  
+
   /**
    * Rendu du TodoList
    * @return {[type]}
    */
-  render() {
+  render(todos) {
     this.el.innerHTML = this.template;
     //L'élément .todo-list existe pour le navigateur
     this.listEl = this.el.querySelector(".todo-list"); //on l'ajouter car il n'existe pas dans le html, juste dans le render
-    for (let todo of this.todos) {
+    for (let todo of todos) {
       todo.render();
     }
 
@@ -48,7 +48,6 @@ export default class TodoList {
     this.el.querySelector(".todo-count strong").textContent = this.notCompletedNumber;
   }
 
-
   /**
    * Ajout d'un todo
    */
@@ -56,7 +55,7 @@ export default class TodoList {
     const content = this.el.querySelector(".new-todo").value;
     // const id = this.todos[this.todos.length - 1].id + 1; // prof
     const id = this.todos.length + 1; //perso
-    const newTodo = new Todo({ parent: this, todo : { id, content, completed: false } });
+    const newTodo = new Todo({ parent: this, todo: { id, content, completed: false } });
     this.todos.push(newTodo);
     newTodo.render();
     this.el.querySelector(".new-todo").value = ""; // on vide l'input de sa valeur
@@ -67,7 +66,24 @@ export default class TodoList {
    * Suppresion d'un élément du tab this.todos
    */
   removeOneById(id) {
-    this.todos = this.todos.filter(el => el.id != id);
+    this.todos = this.todos.filter((el) => el.id != id);
+  }
+
+  /**
+   * Filtrage
+   */
+  _filter(filter) {
+    switch (filter) {
+      case "active":
+        this.render(this.todos.filter((todo) => !todo.completed));
+        break;
+      case "completed":
+        this.render(this.todos.filter((todo) => todo.completed));
+        break;
+      default:
+        this.render(this.todos);
+        break;
+    }
   }
 
   /**
@@ -75,10 +91,18 @@ export default class TodoList {
    */
   activerBtns() {
     //Activation de l'input .new-todo
-    this.el.querySelector(".new-todo").addEventListener("keyup",(e)=> {
+    this.el.querySelector(".new-todo").addEventListener("keyup", (e) => {
       if (e.key == "Enter") {
         this.addTodo();
       }
-    })
+    });
+
+    //Activation des .filter
+    let filterBtns = this.el.querySelectorAll(".filter");
+    for (let filterBtn of filterBtns) {
+      filterBtn.addEventListener("click", () => {
+        this._filter(filterBtn.dataset.filter);
+      });
+    }
   }
 }

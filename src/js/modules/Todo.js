@@ -19,8 +19,8 @@ export default class Todo {
       this.template = this.template.replace(`{{${propriete}}}`, this[propriete]);
     }
     //Si c'est completed
-    this.template = this.template.replace("{{isCompletedClass}}", this.completed == true ? "completed" : "");
-    this.template = this.template.replace("{{isCompletedChecked}}", this.completed == true ? "checked=checked" : "");
+    this.template = this.template.replace("{{isCompletedClass}}", this.completed === true ? "completed" : "");
+    this.template = this.template.replace("{{isCompletedChecked}}", this.completed === true ? "checked=checked" : "");
   }
 
   render() {

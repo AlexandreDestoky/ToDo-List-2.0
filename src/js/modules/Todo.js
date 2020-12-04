@@ -7,13 +7,16 @@ export default class Todo {
     this.id = data.todo.id;
     this.content = data.todo.content;
     this.completed = data.todo.completed;
-    this.template = todoTemplate;
+    // this.template = todoTemplate; // version prof
+    this.template; // version perso
   }
 
   /**
    * met les données dans le template
    */
   _replaceInTemplate() {
+    this.template = todoTemplate; // version perso
+    this.templateCopie = this.template;
     //je remplace les données statiques par les données du Todo
     for (let propriete in this) {
       this.template = this.template.replace(`{{${propriete}}}`, this[propriete]);

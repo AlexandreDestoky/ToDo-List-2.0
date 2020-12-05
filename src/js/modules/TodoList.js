@@ -81,7 +81,17 @@ export default class TodoList {
   }
 
   /**
-   * Filtrage
+   * Complete les todos qui ne sont pas encore completed
+   */
+  _completeAll() {
+    const notCompleted = this.todos.filter((todo) => !todo.completed);
+    for (const todo of notCompleted) {
+      todo._toggleCompleted();
+    }
+  }
+
+  /**
+   * Filtrage des todos selon le filtre
    */
   _filter(filter) {
     switch (filter) {
@@ -117,9 +127,13 @@ export default class TodoList {
     }
 
     //Activation de .clear-completed
-    let clearBtn = this.el.querySelector(".clear-completed");
-    clearBtn.addEventListener("click", () => {
+    this.el.querySelector(".clear-completed").addEventListener("click", () => {
       this.removeAllCompleted();
+    });
+
+    //Activation de .toggle-all
+    this.el.querySelector(".toggle-all").addEventListener("click", () => {
+      this._completeAll();
     });
   }
 }

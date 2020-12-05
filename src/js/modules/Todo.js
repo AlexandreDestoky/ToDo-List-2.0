@@ -73,6 +73,11 @@ export default class Todo {
     this.completed = !this.completed;
     this.el.querySelector("li").classList.toggle("completed");
     this.parent.setNotCompletedNumber();
+    if(this.completed) {
+      this.el.querySelector("li input").checked = true;
+    } else {
+      this.el.querySelector("li input").removeAttribute('checked');
+    }
   }
 
   /**

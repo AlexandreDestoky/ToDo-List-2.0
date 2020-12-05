@@ -113,7 +113,7 @@ export default class TodoList {
   activerBtns() {
     //Activation de l'input .new-todo
     this.el.querySelector(".new-todo").addEventListener("keyup", (e) => {
-      if (e.key == "Enter") {
+      if (e.key == "Enter" && this.el.querySelector(".new-todo").value != "") {
         this.addTodo();
       }
     });

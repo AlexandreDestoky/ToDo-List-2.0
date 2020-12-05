@@ -90,7 +90,7 @@ export default class Todo {
    */
   _edit() {
     this.el.querySelector(".editable").innerHTML = `
-      <input type="text" class="validate" value="${this.content}"/>
+      <input type="text" class="validate" autofocus value="${this.content}"/>
     `;
     this._activerBtns();
   }

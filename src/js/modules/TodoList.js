@@ -1,5 +1,6 @@
 import Todo from "./Todo.js";
 import todoListTemplate from "./templates/todoList.js";
+import todo from "./templates/todo.js";
 
 export default class TodoList {
   constructor(data) {
@@ -70,6 +71,16 @@ export default class TodoList {
   }
 
   /**
+   * Suppresion des todos completed
+   */
+  removeAllCompleted() {
+    //On supprime les todos completed du tableau this.todos
+    this.todos = this.todos.filter((todo) => !todo.completed);
+    //On affiche les todos du tableau this.todos
+    this.render(this.todos);
+  }
+
+  /**
    * Filtrage
    */
   _filter(filter) {
@@ -104,5 +115,11 @@ export default class TodoList {
         this._filter(filterBtn.dataset.filter);
       });
     }
+
+    //Activation de .clear-completed
+    let clearBtn = this.el.querySelector(".clear-completed");
+    clearBtn.addEventListener("click", () => {
+      this.removeAllCompleted();
+    });
   }
 }

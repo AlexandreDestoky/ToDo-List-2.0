@@ -7,9 +7,13 @@ export default class TodoList {
     this.el = document.querySelector(data.el);
     this.listEl;
     this.notCompletedNumber;
-    this.todos = []; // tableau d'éléments todo
-    this.loadTodos(data.todos);
+    // this.todos = []; // tableau d'éléments todo (ANCIENNE METHODE (SANS LOCAL STORAGE))
     this.template = todoListTemplate;
+
+    //Stockage en LocalStorage
+    this.todos;
+    this.loadTodos(data.todos);
+
     this.render(this.todos);
   }
 
@@ -17,9 +21,22 @@ export default class TodoList {
    * Remplissage de this.todos avec toutes nos todo
    */
   loadTodos(todos) {
-    for (const todo of todos) {
-      this.todos.push(new Todo({ parent: this, todo }));
+    //ANCIENNE METHODE (SANS LOCAL STORAGE)
+    // for (const todo of todos) {
+    //   this.todos.push(new Todo({ parent: this, todo }));
+    // }
+
+    if(!localStorage.todos) {
+      localStorage.todos = JSON.stringify(todos); //Transformation format JSON
     }
+  }
+
+  set todos (data) {
+
+  }
+
+  get todos () {
+    return JSON.parse(localStorage.todos);
   }
 
   /**
@@ -31,7 +48,8 @@ export default class TodoList {
     //L'élément .todo-list existe pour le navigateur
     this.listEl = this.el.querySelector(".todo-list"); //on l'ajouter car il n'existe pas dans le html, juste dans le render
     for (let todo of todos) {
-      todo.render();
+      const newTodo = new Todo ({parent:this,todo});
+      newTodo.render();
     }
 
     //calcul du nombre de todo not completed
